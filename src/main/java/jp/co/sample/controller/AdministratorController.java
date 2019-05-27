@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,16 +37,27 @@ public class AdministratorController {
 		return new InsertAdministratorForm();
 	}
 	
+	/**
+	 * @param model : リクエストスコープ
+	 * @return ログイン処理へ
+	 */
 	@RequestMapping("/")
 	public String toLogin(Model model) {
 		return "administrator/login";
 	}
 	
+	/**
+	 * @param model : リクエストスコープ
+	 * @return 管理者アカウント追加処理へ
+	 */
 	@RequestMapping("/toInsert")
 	public String toInsert(Model model) {
 		return "administrator/insert";
 	}
 	
+	/**
+	 * @return ログイン画面へ
+	 */
 	@RequestMapping("/logout")
 	public String logout() {
 		session.removeAttribute("administratorName");
@@ -57,9 +67,9 @@ public class AdministratorController {
 	/**
 	 * 管理者ログイン.
 	 * 
-	 * @param form
-	 * @param result
-	 * @param model
+	 * @param form : Loginフォーム
+	 * @param result : エラー処理へ
+	 * @param model : リクエストスコープ
 	 * @return ログイン成功時従業員情報リストにフォワード
 	 */
 	@RequestMapping("/login")
@@ -79,9 +89,8 @@ public class AdministratorController {
 			session.setAttribute("administratorName", administrator.getName());
 			return "forward:/employee/showList";
 		}else {
-//			model.addAttribute("isLogin",false);
-//			model.addAttribute("errorMessage", "メールアドレスまたはパスワードが間違っています");
-			FieldError fieldError = new FieldError(result.getObjectName(),"mailAddress","メールアドレスまたはパスワードが間違っています。");
+			FieldError fieldError 
+			= new FieldError(result.getObjectName(),"mailAddress","メールアドレスまたはパスワードが間違っています。");
 			result.addError(fieldError);
 			return toLogin(model);
 		}
@@ -91,8 +100,8 @@ public class AdministratorController {
 	 * 管理者アカウント作成.
 	 * 
 	 * @param form
-	 * @param result
-	 * @param model
+	 * @param result:
+	 * @param model:リクエストスコープ
 	 * @return ログイン画面にフォワード
 	 */
 	@RequestMapping("/insert")
@@ -112,7 +121,9 @@ public class AdministratorController {
 		if(administrator != null) {
 			return toLogin(model);
 		}else {
-			result.addError(new ObjectError("insert","すでに存在するアカウントです。"));
+			FieldError fieldError
+			= new FieldError(result.getObjectName(),"name","すでに存在するアカウントです。");
+			result.addError(fieldError);
 			return toInsert(model);
 		}
 	}
