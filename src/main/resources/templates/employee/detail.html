@@ -40,7 +40,7 @@
 					<p class="navbar-text navbar-right">
 						<span th:text="${session.administratorName + 'さん'}">山田さん</span>こんにちは！
 						&nbsp;&nbsp;&nbsp;
-						<a href="../administrator/login.html" class="navbar-link" th:href="@{/logout}">ログアウト</a>
+						<a href="../administrator/login.html" class="navbar-link" th:href="@{../administrator/logout}">ログアウト</a>
 					</p>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -63,9 +63,112 @@
 				
 				
 <!-- ここから上を編集する必要はありません -->
-
+	
 <!-- ここにモックのform要素を貼り付けます -->
-
+				<form method="post" action="list.html" th:action="@{/employee/update}" th:object="${updateEmployeeForm}">
+						<fieldset>
+							<legend>従業員情報</legend>
+							<table class="table table-striped">
+							  <tr>
+							    <th nowrap>
+							      従業員名
+							    </th>
+							    <td>
+							     <span th:name="${employee.name}">山田花子</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      写真
+							    </th>
+							    <td>
+							      <img src="../../static/img/e2.png" th:src="@{/img/}+${employee.image}">
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      性別
+							    </th>
+							    <td>
+							      <span th:text="${employee.gender}">女性</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      入社日
+							    </th>
+							    <td>
+							    
+							      <span th:text="${#dates.format(employee.hireDate,'yyyy/MM/dd')}">2012/11/29</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      メールアドレス
+							    </th>
+							    <td>
+							      <span th:text="${employee.mailAddress}">yamada@sample.com</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      郵便番号
+							    </th>
+							    <td>
+							      <span th:text="${employee.zipCode}">111-1111</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      住所
+							    </th>
+							    <td>
+							      <span th:text="${employee.address}">東京都新宿区1-1-1</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      電話番号
+							    </th>
+							    <td>
+							      <span th:text="${employee.telephone}">090-0000-0000</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      給料
+							    </th>
+							    <td>
+							      <span th:text="${employee.salary+'円'}">400000円</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      特性
+							    </th>
+							    <td>
+							      <span th:text="${employee.characteristics}">明るく素直な性格です。リーダーシップを発揮します。新卒社員研修の時はグループ開発の時にリーダーを買ってでました。積極性も人間性も抜群です。周りに対する不満も聞いたことがありません。</span>
+							    </td>
+							  </tr>
+							  <tr>
+							    <th nowrap>
+							      扶養人数
+							    </th>
+							    <td>
+							        <span th:text="${employee.dependentsCount}"></span>
+							    	<label class="error-messages" >
+										
+									</label>
+									<label class="control-label" style="color: red" for="dependentsCount" th:if="${#fields.hasErrors('dependentsCount')}" th:errors="*{dependentsCount}"></label>
+									<input type="text" name="dependentsCount" id="dependentsCount" class="form-control" value="3" th:field="*{dependentsCount}">
+									<input type="hidden" name="id" th:value="${employee.id}">
+							    </td>
+							  </tr>
+							  
+							</table>
+							<button type="submit" class="btn btn-primary">更新</button>
+						</fieldset>
+					</form>
 
 					
 <!-- ここから下を編集する必要はありません -->

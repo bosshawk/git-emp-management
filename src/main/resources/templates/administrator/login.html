@@ -27,11 +27,35 @@
 				<div class="well">
 
 <!-- ここから上を編集する必要はありません -->
+				<form method="post" action="../employee/list.html" th:action="@{/administrator/login}" th:object="${loginForm}">
+						<fieldset>
+							<legend>ログイン</legend>
+							<!-- <div class="form-group">
+								<div class="alert alert-danger" > -->
+							<div th:if="${#fields.hasErrors('mailAddress')}" class="form-group">
+								<div th:if="${#fields.hasErrors('mailAddress')}" class="alert alert-danger">
+									<p th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}"></p>
+									<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+			                    </div>
+			                </div>
+							<div class="form-group">
+								<label for="mailAddress">メールアドレス:</label>
+								<input type="text" name="mailAddress" id="mailAddress" class="form-control" placeholder="Email" th:field="*{mailAddress}">
+							</div>
+							<div class="form-group">
+								<label for="inputPassword">パスワード:</label>
+								<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" th:field="*{password}">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">ログイン</button>
+							</div>
+							<div class="form-group">
+								<a href="insert.html" th:href="@{/administrator/toInsert}">管理者登録はこちらから</a>
+							</div>
+						</fieldset>
+					</form>
 
 <!-- ここにモックのform要素を貼り付けます -->
-
-
-
 <!-- ここから下を編集する必要はありません -->
 				</div>
 			</div>

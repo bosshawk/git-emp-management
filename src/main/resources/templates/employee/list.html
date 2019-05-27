@@ -40,7 +40,7 @@
 					<p class="navbar-text navbar-right">
 						<span th:text="${session.administratorName + 'さん'}">山田さん</span>こんにちは！
 						&nbsp;&nbsp;&nbsp;
-						<a href="../administrator/login.html" class="navbar-link" th:href="@{/logout}">ログアウト</a>
+						<a href="../administrator/login.html" class="navbar-link" th:href="@{../administrator/logout}">ログアウト</a>
 					</p>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -61,7 +61,31 @@
 <!-- ここから上を編集する必要はありません -->
 
 <!-- ここにモックのtable要素を貼り付けます -->
-
+			<table class="table table-striped">
+				<tr>
+					<th>
+						従業員数
+					</th>
+					<th>
+						入社日
+					</th>
+					<th>
+						扶養人数
+					</th>
+				</tr>
+				<tr th:each="employee:${employeeList}">
+					<td>
+						<a href="detail.html" th:href="@{/employee/showDetail?id=}+${employee.id}" >
+							<span th:text="${employee.name}"></span>
+						</a>
+					</td>
+					<td>
+						<span th:text="${employee.hireDate}"></span>
+					<td>
+						<span th:text="${employee.dependentsCount}"></span>
+					</td>
+				</tr>
+			</table>
 
 
 <!-- ここから下を編集する必要はありません -->
