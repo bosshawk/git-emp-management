@@ -65,7 +65,7 @@ public class AdministratorController {
 	}
 	
 	/**
-	 * 管理者ログイン.
+	 * 管理者ログインする.
 	 * 
 	 * @param form : Loginフォーム
 	 * @param result : エラー処理へ
@@ -97,11 +97,14 @@ public class AdministratorController {
 	}
 	
 	/**
-	 * 管理者アカウント作成.
+	 * 管理者アカウントを作成する.
 	 * 
-	 * @param form
-	 * @param result:
-	 * @param model:リクエストスコープ
+	 * 管理者アカウントを追加する
+	 * 
+	 * 
+	 * @param form : 追加アカウト情報
+	 * @param result : エラーメッセージ
+	 * @param model : リクエストスコープ
 	 * @return ログイン画面にフォワード
 	 */
 	@RequestMapping("/insert")
