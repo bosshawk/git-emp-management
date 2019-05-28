@@ -80,7 +80,7 @@
 						</a>
 					</td>
 					<td>
-						<span th:text="${employee.hireDate}"></span>
+						<span th:text="${#dates.format(employee.hireDate,'yyyy/MM/dd')}"></span>
 					<td>
 						<span th:text="${employee.dependentsCount}"></span>
 					</td>

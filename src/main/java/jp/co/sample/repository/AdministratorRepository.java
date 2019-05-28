@@ -16,6 +16,13 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sample.domain.Administrator;
 
+/**
+ * 管理者情報のレポジトリ.
+ * 
+ * 
+ * @author taka
+ *
+ */
 @Repository
 public class AdministratorRepository {
 	
@@ -50,7 +57,7 @@ public class AdministratorRepository {
 	/**
 	 * 主キー検索.
 	 * 
-	 * @param id 検索するID
+	 * @param id : 検索するID
 	 * @return 検索された管理者情報
 	 */
 	public Administrator load(Integer id) {
@@ -64,9 +71,25 @@ public class AdministratorRepository {
 	}
 	
 	/**
-	 * 全件検索.
+	 * 検索:引数(メールアドレス,パスワード)の管理者情報
 	 * 
-	 * @return 検索された管理者情報
+	 * @param mailAddress : 検索するメールアドレス
+	 * @param password : 検索するパスワード
+	 * @return 検索された管理者情報 or Null
+	 */
+	public Administrator findByEmailAddressAndPassword(String mailAddress,String password) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT id,name,mail_address,password ");
+		sql.append("WHERE mail_address=:mailAddress AND password=:password;");
+		SqlParameterSource param
+		= new MapSqlParameterSource().addValue("mailAddress",mailAddress).addValue("password", password);
+		return template.queryForObject(sql.toString(), param, ADMINISTRATOR_ROW_MAPPER);
+	}
+	
+	/**
+	 * 全件検索:管理者情報.
+	 * 
+	 * @return 検索された管理者情報 or Null
 	 */
 	public List<Administrator> findAll(){
 		StringBuffer sql = new StringBuffer();
@@ -77,25 +100,24 @@ public class AdministratorRepository {
 	
 	
 	/**
-	 * 追加,更新する管理者情報を追加.
+	 * 追加.更新:管理者情報.
 	 * 
 	 * @param administrator 追加,更新する管理者情報
 	 * @return 更新した管理者情報
 	 */
-	public Administrator insert(Administrator administrator) {
+	public Administrator save(Administrator administrator) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
 		if(administrator.getId() == null) {
 			Number key = insert.executeAndReturnKey(param);
 			administrator.setId(key.intValue());
-			return administrator;
 		}else {
-			return null;
-//			StringBuffer updateSql = new StringBuffer();
-//			updateSql.append("UPDATE "+TABLE_NAME + " ");
-//			updateSql.append("SET name = :name,mail_address = :mailAddress ");
-//			updateSql.append("password=:password WHERE id = :id");
-//			template.update(updateSql.toString(), param);
+			StringBuffer updateSql = new StringBuffer();
+			updateSql.append("UPDATE "+TABLE_NAME + " ");
+			updateSql.append("SET name = :name,mail_address = :mailAddress ");
+			updateSql.append("password=:password WHERE id = :id");
+			template.update(updateSql.toString(), param);
 		}
+		return administrator;
 	}
 	
 

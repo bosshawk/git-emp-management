@@ -31,7 +31,7 @@ public class AdministratorService {
 	 * @return 追加時管理者情報を返し、存在する場合nullを返す
 	 */
 	public Administrator insert(Administrator administrator) {
-		return repository.insert(administrator);
+		return repository.save(administrator);
 	}
 	
 	/**

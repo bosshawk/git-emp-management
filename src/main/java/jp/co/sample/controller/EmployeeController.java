@@ -35,8 +35,8 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
-		List<Employee> employeeList = new ArrayList<>();
-		employeeList = service.findAll();
+		//List<Employee> employeeList = new ArrayList<>();
+		List<Employee> employeeList = service.findAll();
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}

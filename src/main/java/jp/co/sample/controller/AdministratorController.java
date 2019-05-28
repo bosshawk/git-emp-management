@@ -17,6 +17,12 @@ import jp.co.sample.form.InsertAdministratorForm;
 import jp.co.sample.form.LoginForm;
 import jp.co.sample.service.AdministratorService;
 
+/**
+ * 管理者情報を操作するコントローラ.
+ * 
+ * @author taka
+ *
+ */
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController {
@@ -38,6 +44,7 @@ public class AdministratorController {
 	}
 	
 	/**
+	 * ログイン画面へ遷移する.
 	 * @param model : リクエストスコープ
 	 * @return ログイン処理へ
 	 */
