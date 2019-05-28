@@ -74,7 +74,9 @@
 							      従業員名
 							    </th>
 							    <td>
-							     <span th:name="${employee.name}">山田花子</span>
+							     <!-- <span th:name="${employee.name}">山田花子</span> -->
+							     <label class="control-label" style="color: red" for="name" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
+							      <input type="text" name="name" id="name" class="form-control" value="3" th:field="*{name}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -90,7 +92,9 @@
 							      性別
 							    </th>
 							    <td>
-							      <span th:text="${employee.gender}">女性</span>
+							      <!-- <span th:text="${employee.gender}">女性</span> -->
+							      <label class="control-label" style="color: red" for="gender" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></label>
+							      <input type="text" name="gender" id="gender" class="form-control" value="3" placeholder="男性" th:field="*{gender}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -98,8 +102,9 @@
 							      入社日
 							    </th>
 							    <td>
-							    
-							      <span th:text="${#dates.format(employee.hireDate,'yyyy/MM/dd')}">2012/11/29</span>
+							      <!-- <span th:text="${#dates.format(employee.hireDate,'yyyy/MM/dd')}">2012/11/29</span> -->
+							      <label class="control-label" style="color: red" for="hireDate" th:if="${#fields.hasErrors('hireDate')}" th:errors="*{hireDate}"></label>
+							      <input type="date" name="hireDate" id="hireDate" class="form-control" value="3" th:field="*{hireDate}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -107,7 +112,9 @@
 							      メールアドレス
 							    </th>
 							    <td>
-							      <span th:text="${employee.mailAddress}">yamada@sample.com</span>
+							      <!-- <span th:text="${employee.mailAddress}">yamada@sample.com</span> -->
+							      <label class="control-label" style="color: red" for="address" th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}"></label>
+							      <input type="text" name="mailAddress" id="mailAddress" class="form-control" value="3" th:field="*{mailAddress}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -115,7 +122,9 @@
 							      郵便番号
 							    </th>
 							    <td>
-							      <span th:text="${employee.zipCode}">111-1111</span>
+							      <!-- <span th:text="${employee.zipCode}">111-1111</span> -->
+							      <label class="control-label" style="color: red" for="zipCode" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></label>
+							      <input type="text" name="zipCode" id="zipCode" class="form-control" value="3" th:field="*{zipCode}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -123,7 +132,9 @@
 							      住所
 							    </th>
 							    <td>
-							      <span th:text="${employee.address}">東京都新宿区1-1-1</span>
+							      <!-- <span th:text="${employee.address}">東京都新宿区1-1-1</span> -->
+							      <label class="control-label" style="color: red" for="address" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></label>
+							      <input type="text" name="address" id="address" class="form-control" value="3" th:field="*{address}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -131,7 +142,9 @@
 							      電話番号
 							    </th>
 							    <td>
-							      <span th:text="${employee.telephone}">090-0000-0000</span>
+							      <!-- <span th:text="${employee.telephone}">090-0000-0000</span> -->
+							      <label class="control-label" style="color: red" for="telephone" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}"></label>
+							      <input type="text" name="telephone" id="telephone" class="form-control" value="3" th:field="*{telephone}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -139,7 +152,9 @@
 							      給料
 							    </th>
 							    <td>
-							      <span th:text="${employee.salary+'円'}">400000円</span>
+							      <!-- <span th:text="${employee.salary+'円'}">400000円</span> -->
+							      <label class="control-label" style="color: red" for="salary" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></label>
+							      <input type="text" name="salaly" id="salary" class="form-control" value="3" th:field="*{salary}">円
 							    </td>
 							  </tr>
 							  <tr>
@@ -147,7 +162,9 @@
 							      特性
 							    </th>
 							    <td>
-							      <span th:text="${employee.characteristics}">明るく素直な性格です。リーダーシップを発揮します。新卒社員研修の時はグループ開発の時にリーダーを買ってでました。積極性も人間性も抜群です。周りに対する不満も聞いたことがありません。</span>
+							      <!-- <span th:text="${employee.characteristics}">明るく素直な性格です。リーダーシップを発揮します。新卒社員研修の時はグループ開発の時にリーダーを買ってでました。積極性も人間性も抜群です。周りに対する不満も聞いたことがありません。</span> -->
+							      <label class="control-label" style="color: red" for="characteristics" th:if="${#fields.hasErrors('characteristics')}" th:errors="*{characteristics}"></label>
+							      <textarea rows="" cols="" name="characteristics" id="characteristics" class="form-control" th:field="*{characteristics}"></textarea>
 							    </td>
 							  </tr>
 							  <tr>
@@ -155,10 +172,10 @@
 							      扶養人数
 							    </th>
 							    <td>
-							        <span th:text="${employee.dependentsCount}"></span>
-							    	<label class="error-messages" >
+							        <!-- <span th:text="${employee.dependentsCount}"></span> -->
+							    	<!-- <label class="error-messages" >
 										
-									</label>
+									</label> -->
 									<label class="control-label" style="color: red" for="dependentsCount" th:if="${#fields.hasErrors('dependentsCount')}" th:errors="*{dependentsCount}"></label>
 									<input type="text" name="dependentsCount" id="dependentsCount" class="form-control" value="3" th:field="*{dependentsCount}">
 									<input type="hidden" name="id" th:value="${employee.id}">

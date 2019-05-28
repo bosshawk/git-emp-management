@@ -2,6 +2,7 @@ package jp.co.sample.controller;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,10 +49,11 @@ public class EmployeeController {
 	 * @return 従業員詳細情報のビューへ遷移
 	 */
 	@RequestMapping("/showDetail")
-	public String showDetail(String id,Model model){
+	public String showDetail(String id,Model model,UpdateEmployeeForm form){
 		Employee employee = new Employee();
 		employee = service.load(Integer.parseInt(id));
 		model.addAttribute("employee", employee);
+		form.copy(employee);
 		return "employee/detail";
 	}
 	
@@ -72,7 +74,7 @@ public class EmployeeController {
 			) {
 		
 		if(result.hasErrors()) {
-			return showDetail(form.getId(),model);
+			return showDetail(form.getId(),model,form);
 		}
 		
 		Employee employee = service.load(Integer.parseInt(form.getId()));

@@ -7,6 +7,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import org.springframework.beans.BeanUtils;
+
 import jp.co.sample.domain.Employee;
 
 /**
@@ -52,6 +54,17 @@ public class UpdateEmployeeForm {
 	@Pattern(regexp = "[0-9]+", message = "数字を入力してください")
 	private String dependentsCount;
 
+	/**
+	 * 引数:管理者情報をフィールド変数にコピー.
+	 * 
+	 * @param employee : 管理者情報
+	 */
+	public void copy(Employee employee) {
+		BeanUtils.copyProperties(employee,this);
+		hireDate = employee.getHireDate().toString();
+		salary = ""+employee.getSalary();
+		dependentsCount = ""+employee.getDependentsCount();
+	}
 	
 	/**
 	 * 従業員情報をformのフィールド変数で更新.

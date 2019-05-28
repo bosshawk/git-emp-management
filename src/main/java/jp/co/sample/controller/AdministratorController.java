@@ -117,6 +117,8 @@ public class AdministratorController {
 		}else {
 			FieldError fieldError 
 			= new FieldError(result.getObjectName(),"mailAddress","メールアドレスまたはパスワードが間違っています。");
+			//result.rejectValue(field, errorCode, defaultMessage);
+			//errorCode=null
 			result.addError(fieldError);
 			return toLogin(model);
 		}

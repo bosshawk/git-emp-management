@@ -83,8 +83,17 @@ public class AdministratorRepository {
 		sql.append("WHERE mail_address=:mailAddress AND password=:password;");
 		SqlParameterSource param
 		= new MapSqlParameterSource().addValue("mailAddress",mailAddress).addValue("password", password);
-		return template.queryForObject(sql.toString(), param, ADMINISTRATOR_ROW_MAPPER);
+		List<Administrator> administratorList = template.query(sql.toString(), param, ADMINISTRATOR_ROW_MAPPER);
+		if(administratorList.size()==1) {
+			return administratorList.get(0);
+		}else {
+			return null;
+		} 
 	}
+	
+//	public Integer countByEmailAndPassword(String mailAddress,String pasword) {
+//		
+//	}
 	
 	/**
 	 * 全件検索:管理者情報.
