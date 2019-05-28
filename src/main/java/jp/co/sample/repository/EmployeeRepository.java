@@ -24,6 +24,7 @@ public class EmployeeRepository {
 	
 	private static final String TABLE_NAME = "employees";
 	
+	/** 従業員情報のRowMapper */
 	private static final RowMapper<Employee> 
 	EMPLOYEE_ROW_MAPPER = (rs,i) -> {
 		Employee employee = new Employee();
@@ -42,7 +43,9 @@ public class EmployeeRepository {
 		return employee;
 	};
 	
+	/** 追加時に主キー取得 */
 	private SimpleJdbcInsert insert;
+	/** 追加時主キー取得 */
 	@PostConstruct
 	public void init() {
 		SimpleJdbcInsert simpleJdbcInsert

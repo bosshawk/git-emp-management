@@ -4,6 +4,12 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * 追加する管理者情報のフォーム.
+ * 
+ * @author taka
+ *
+ */
 public class InsertAdministratorForm {
 
 	/** 名前 */

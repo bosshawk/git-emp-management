@@ -1,5 +1,11 @@
 package jp.co.sample.domain;
 
+/**
+ * 管理者情報.
+ * 
+ * @author taka
+ *
+ */
 public class Administrator {
 
 	/** ID */

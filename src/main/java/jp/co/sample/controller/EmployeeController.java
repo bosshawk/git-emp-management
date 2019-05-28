@@ -1,6 +1,5 @@
 package jp.co.sample.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +28,25 @@ public class EmployeeController {
 	
 	
 	/**
+	 * 表示:全従業員リスト.
 	 * 
-	 * @param model
-	 * @return
+	 * @param model : リクエストスコープ
+	 * @return 従業員リストビューにフォワード
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
-		//List<Employee> employeeList = new ArrayList<>();
 		List<Employee> employeeList = service.findAll();
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
 	
+	/**
+	 * 表示:従業員の詳細
+	 * 
+	 * @param id : 表示する従業員情報のID
+	 * @param model : 従業員情報のリクエストスコープ
+	 * @return 従業員詳細情報のビューへ遷移
+	 */
 	@RequestMapping("/showDetail")
 	public String showDetail(String id,Model model){
 		Employee employee = new Employee();
@@ -49,25 +55,36 @@ public class EmployeeController {
 		return "employee/detail";
 	}
 	
+	/**
+	 * 更新:従業員情報.
+	 * 
+	 * @param form : 更新する従業員情報
+	 * @param result : エラーメッセージ
+	 * @param model : リクエストスコープ
+	 * @return 更新後:従業員リストへredirect,エラー時:詳細従業員表示へredirect
+	 */
 	@RequestMapping("/update")
 	public String update(
 			@Validated UpdateEmployeeForm form,
 			BindingResult result,
 			Model model
 			) {
+		
 		if(result.hasErrors()) {
 			return showDetail(form.getId(),model);
 		}
-		Employee employee = new Employee();
-		employee = service.load(Integer.parseInt(form.getId()));
-		Integer dependentsCount = Integer.parseInt(form.getDependentsCount());
-		employee.setDependentsCount(dependentsCount);
+		
+		Employee employee = service.load(Integer.parseInt(form.getId()));
+		employee.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
+		
 		employee = service.update(employee);
-		if(employee != null) {
-			return showList(model);
-		}else {
-			return "finished";
-		}
+		
+		return "redirect:/employee/showList";
+//		if(employee != null) {
+//			return showList(model);
+//		}else {
+//			return "finished";
+//		}
 	}
 	
 	

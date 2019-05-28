@@ -3,6 +3,12 @@ package jp.co.sample.form;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+/**
+ * 更新する従業員情報のフォーム.
+ * 
+ * @author taka
+ *
+ */
 public class UpdateEmployeeForm {
 	
 	/** ID */

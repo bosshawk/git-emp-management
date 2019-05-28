@@ -33,18 +33,21 @@ public class AdministratorController {
 	@Autowired
 	private HttpSession session;
 	
+	/** ログインする管理者情報のフォームのインスタンス化 */
 	@ModelAttribute
 	public LoginForm setUpLoginForm() {
 		return new LoginForm();
 	}
 	
+	/** 追加する管理者情報のフォームのインスタンス化 */
 	@ModelAttribute
 	public InsertAdministratorForm setUpInsertForm() {
 		return new InsertAdministratorForm();
 	}
 	
 	/**
-	 * ログイン画面へ遷移する.
+	 * 遷移:ログインビュー.
+	 * 
 	 * @param model : リクエストスコープ
 	 * @return ログイン処理へ
 	 */
@@ -54,6 +57,8 @@ public class AdministratorController {
 	}
 	
 	/**
+	 * 遷移:管理者情報追加ビュー
+	 * 
 	 * @param model : リクエストスコープ
 	 * @return 管理者アカウント追加処理へ
 	 */
@@ -63,7 +68,12 @@ public class AdministratorController {
 	}
 	
 	/**
-	 * @return ログイン画面へ
+	 * ログアウト処理.
+	 * 
+	 * session内の管理者.名前を削除し
+	 * ログインビューへフォワード
+	 * 
+	 * @return ログインビューへフォワード
 	 */
 	@RequestMapping("/logout")
 	public String logout() {
@@ -72,9 +82,16 @@ public class AdministratorController {
 	}
 	
 	/**
-	 * 管理者ログインする.
+	 * ログイン:管理者情報.
 	 * 
-	 * @param form : Loginフォーム
+	 * 入力したメールアドレスとパスワードを検索し
+	 * データベースにあればログインする
+	 * 
+	 * ログイン
+	 * 成功：従業員情報リストにフォワード
+	 * 失敗：エラーを表示しログインviewへ
+	 * 
+	 * @param form : ログインする管理者情報
 	 * @param result : エラー処理へ
 	 * @param model : リクエストスコープ
 	 * @return ログイン成功時従業員情報リストにフォワード
@@ -89,9 +106,11 @@ public class AdministratorController {
 			return toLogin(model);
 		}
 		
+		
 		Administrator administrator = new Administrator();
 		BeanUtils.copyProperties(form, administrator);
 		administrator = service.login(administrator);
+		
 		if(administrator != null) {
 			session.setAttribute("administratorName", administrator.getName());
 			return "forward:/employee/showList";
@@ -104,12 +123,11 @@ public class AdministratorController {
 	}
 	
 	/**
-	 * 管理者アカウントを作成する.
+	 * 作成:管理者アカウント.
 	 * 
 	 * 管理者アカウントを追加する
 	 * 
-	 * 
-	 * @param form : 追加アカウト情報
+	 * @param form : 追加する管理者情報
 	 * @param result : エラーメッセージ
 	 * @param model : リクエストスコープ
 	 * @return ログイン画面にフォワード
