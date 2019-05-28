@@ -63,6 +63,7 @@ public class EmployeeController {
 	 * @param model : リクエストスコープ
 	 * @return 更新後:従業員リストへredirect,エラー時:詳細従業員表示へredirect
 	 */
+	
 	@RequestMapping("/update")
 	public String update(
 			@Validated UpdateEmployeeForm form,
@@ -75,7 +76,7 @@ public class EmployeeController {
 		}
 		
 		Employee employee = service.load(Integer.parseInt(form.getId()));
-		employee.setDependentsCount(Integer.parseInt(form.getDependentsCount()));
+		employee = form.update(employee);
 		
 		employee = service.update(employee);
 		
