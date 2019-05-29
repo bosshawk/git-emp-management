@@ -71,13 +71,33 @@ public class AdministratorRepository {
 	}
 	
 	/**
+	 * 管理者のメールアドレス検索.
+	 * 
+	 * @param mailAddress : 検索するメールアドレス
+	 * @return 検索された管理者情報
+	 */
+	public Administrator findByMailAddress(String mailAddress) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT id,name,mail_address,password ");
+		sql.append("FROM " + TABLE_NAME + " WHERE mail_address = :mailAddress");
+		SqlParameterSource param
+		= new MapSqlParameterSource().addValue("mailAddress", mailAddress);
+		List<Administrator> administratorList = template.query(sql.toString(), param,ADMINISTRATOR_ROW_MAPPER);
+		if(administratorList.size()==1) {
+			return administratorList.get(0);
+		}else {
+			return null;
+		}
+	}
+	
+	/**
 	 * 検索:引数(メールアドレス,パスワード)の管理者情報
 	 * 
 	 * @param mailAddress : 検索するメールアドレス
 	 * @param password : 検索するパスワード
 	 * @return 検索された管理者情報 or Null
 	 */
-	public Administrator findByEmailAddressAndPassword(String mailAddress,String password) {
+	public Administrator findByMailAddressAndPassword(String mailAddress,String password) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT id,name,mail_address,password FROM "+ TABLE_NAME + " ");
 		sql.append("WHERE mail_address=:mailAddress AND password=:password;");

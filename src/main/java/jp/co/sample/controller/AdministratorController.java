@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.sample.domain.Administrator;
 import jp.co.sample.form.InsertAdministratorForm;
 import jp.co.sample.form.LoginForm;
+import jp.co.sample.form.UpdateAdministratorForm;
 import jp.co.sample.service.AdministratorService;
 
 /**
@@ -45,6 +46,12 @@ public class AdministratorController {
 		return new InsertAdministratorForm();
 	}
 	
+	/** 更新する管理者情報のフォームのインスタンス化 */
+	@ModelAttribute
+	public UpdateAdministratorForm setUpdateForm() {
+		return new UpdateAdministratorForm();
+	}
+	
 	/**
 	 * 遷移:ログインビュー.
 	 * 
@@ -57,7 +64,7 @@ public class AdministratorController {
 	}
 	
 	/**
-	 * 遷移:管理者情報追加ビュー
+	 * 遷移:管理者情報追加ビュー.
 	 * 
 	 * @param model : リクエストスコープ
 	 * @return 管理者アカウント追加処理へ
@@ -65,6 +72,21 @@ public class AdministratorController {
 	@RequestMapping("/toInsert")
 	public String toInsert(Model model) {
 		return "administrator/insert";
+	}
+	
+	/**
+	 * 遷移:管理者情報更新ビュー.
+	 * 
+	 * @param model : リクエストスコープ
+	 * @return 管理者情報更新ビューへ
+	 */
+	@RequestMapping("/showUpdate")
+	public String showUpdate(Model model,UpdateAdministratorForm form) {
+		Integer id = (int) session.getAttribute("administratorId");
+		if(id!=null) {
+			form.setForm(service.load(id));
+		}
+		return "administrator/update";
 	}
 	
 	/**
@@ -77,6 +99,7 @@ public class AdministratorController {
 	 */
 	@RequestMapping("/logout")
 	public String logout() {
+		session.removeAttribute("administratorId");
 		session.removeAttribute("administratorName");
 		return "redirect:/administrator/";
 	}
@@ -112,6 +135,7 @@ public class AdministratorController {
 		administrator = service.login(administrator);
 		
 		if(administrator != null) {
+			session.setAttribute("administratorId", administrator.getId());
 			session.setAttribute("administratorName", administrator.getName());
 			return "forward:/employee/showList";
 		}else {
@@ -146,16 +170,38 @@ public class AdministratorController {
 		
 		Administrator administrator = new Administrator();
 		BeanUtils.copyProperties(form, administrator);
-		
 		administrator = service.insert(administrator);
+		
 		if(administrator != null) {
 			return toLogin(model);
 		}else {
-			FieldError fieldError
-			= new FieldError(result.getObjectName(),"name","すでに存在するアカウントです。");
-			result.addError(fieldError);
+//			FieldError fieldError
+//			= new FieldError(result.getObjectName(),"mailAddress","すでに存在するアカウントです。");
+//			result.addError(fieldError);
+			model.addAttribute("insertAddministrator", "すでに存在するアカウントです。");
 			return toInsert(model);
 		}
+	}
+	
+	@RequestMapping("/update")
+	public String update(
+			@Validated UpdateAdministratorForm form,
+			BindingResult result,
+			Model model
+			) {
+		if(result.hasErrors()) {
+			return showUpdate(model,form);
+		}
+		Administrator administrator = service.load(form.getIntId());
+		administrator = form.copy(administrator);
+		administrator = service.update(administrator);
+		if(administrator != null) {
+			return "employee/list";
+		}else {
+			model.addAttribute("errorUpdate","このメールアドレスは既に使用されています");
+			return showUpdate(model,form);
+		}
+		
 	}
 	
 

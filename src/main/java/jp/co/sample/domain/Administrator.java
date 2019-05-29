@@ -11,7 +11,7 @@ public class Administrator {
 	/** ID */
 	private Integer id;
 	/** 名前 */
-	private String Name;
+	private String name;
 	/** メールアドレス */
 	private String mailAddress;
 	/** パスワード */
@@ -19,7 +19,7 @@ public class Administrator {
 
 	@Override
 	public String toString() {
-		return "Administrators [id=" + id + ", Name=" + Name + ", mail_addres=" + mailAddress + ", password=" + password
+		return "Administrators [id=" + id + ", Name=" + name + ", mail_addres=" + mailAddress + ", password=" + password
 				+ "]";
 	}
 
@@ -32,11 +32,11 @@ public class Administrator {
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
 	public String getMailAddress() {

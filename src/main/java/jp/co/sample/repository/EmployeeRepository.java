@@ -87,7 +87,7 @@ public class EmployeeRepository {
 	 * @param employee 更新する従業員情報
 	 * @return 更新された従業員情報or既にある場合null
 	 */
-	public Employee update(Employee employee) {
+	public Employee save(Employee employee) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
 		if(employee.getId() == null) {
 			return null;

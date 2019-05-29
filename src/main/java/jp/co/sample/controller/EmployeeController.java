@@ -2,7 +2,8 @@ package jp.co.sample.controller;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,8 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService service;
 	
+	@Autowired
+	private HttpSession session;
 	
 	/**
 	 * 表示:全従業員リスト.
@@ -36,6 +39,9 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
+		if(session.getAttribute("administratorName") == null ) {
+			return "redirect:/administrator/";
+		}
 		List<Employee> employeeList = service.findAll();
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
@@ -50,6 +56,9 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showDetail")
 	public String showDetail(String id,Model model,UpdateEmployeeForm form){
+		if(session.getAttribute("administratorName") == null ) {
+			return "redirect:/administrator/";
+		}
 		Employee employee = new Employee();
 		employee = service.load(Integer.parseInt(id));
 		model.addAttribute("employee", employee);

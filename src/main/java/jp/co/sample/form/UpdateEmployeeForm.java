@@ -35,7 +35,7 @@ public class UpdateEmployeeForm {
 	@Email(message = "メードアドレスの形式で入力してください")
 	private String mailAddress;
 	/** 郵便番号 */
-	@NotBlank(message = "郵便番号を入力してください")
+	@Pattern(regexp = "^\\d{3}\\-?\\d{4}$",message="郵便番号を入力したください")
 	private String zipCode;
 	/** 住所 */
 	@NotBlank(message = "住所を入力してください")

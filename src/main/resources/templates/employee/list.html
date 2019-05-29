@@ -4,6 +4,19 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://yourdomian/jquery.js" type="text/javascript"></script>  
+<script src="http://yourdomian/jquery.pager.js" type="text/javascript"></script>  
+<script type="text/javascript">  
+  $(document).ready(function () {  
+    $('#emp').pager('employee', {  
+      navId: 'nav',  //ナビゲーションに付与するid  
+      height: '12em',  //ページの高さ  
+      prevText: 'Previous',  //前ページのリンク文字  
+      nextText: 'Next',  //後ページのリンク文字  
+      linkText: ['1', '2', '3', '4','5','6','7','8','9','10']  //ページごとのリンク文字  
+    });               
+  });  
+</script>  
 <title>従業員管理システム</title>
 <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" >
 <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" >
@@ -40,6 +53,8 @@
 					<p class="navbar-text navbar-right">
 						<span th:text="${session.administratorName + 'さん'}">山田さん</span>こんにちは！
 						&nbsp;&nbsp;&nbsp;
+						<a href="../administrator/login.html" class="navbar-link" th:href="@{../administrator/showUpdate}">アカウント情報</a>
+						&nbsp;&nbsp;&nbsp;
 						<a href="../administrator/login.html" class="navbar-link" th:href="@{../administrator/logout}">ログアウト</a>
 					</p>
 				</div>
@@ -61,6 +76,7 @@
 <!-- ここから上を編集する必要はありません -->
 
 <!-- ここにモックのtable要素を貼り付けます -->
+			
 			<table class="table table-striped">
 				<tr>
 					<th>
@@ -73,7 +89,9 @@
 						扶養人数
 					</th>
 				</tr>
-				<tr th:each="employee:${employeeList}">
+				
+				<tr th:each="employee:${employeeList}" >
+					<div id="emp">
 					<td>
 						<a href="detail.html" th:href="@{/employee/showDetail?id=}+${employee.id}" >
 							<span th:text="${employee.name}"></span>
@@ -84,8 +102,10 @@
 					<td>
 						<span th:text="${employee.dependentsCount}"></span>
 					</td>
+					</div>
 				</tr>
 			</table>
+			<!-- <div id="nav" class="nav"></div> -->
 
 
 <!-- ここから下を編集する必要はありません -->

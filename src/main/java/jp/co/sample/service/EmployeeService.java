@@ -48,7 +48,7 @@ public class EmployeeService {
 	 * @return 更新された従業員情報
 	 */
 	public Employee update(Employee employee) {
-		return repository.update(employee);
+		return repository.save(employee);
 	}
 
 }

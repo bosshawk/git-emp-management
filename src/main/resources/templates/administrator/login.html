@@ -33,8 +33,8 @@
 							<!-- <div class="form-group">
 								<div class="alert alert-danger" > -->
 							<div th:if="${#fields.hasErrors('mailAddress')}" class="form-group">
-								<div th:if="${#fields.hasErrors('mailAddress')}" class="alert alert-danger">
-									<p th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}"></p>
+								<div class="alert alert-danger">
+									<p th:errors="*{mailAddress}"></p>
 			                    </div>
 			                </div>
 							<div class="form-group">

@@ -14,6 +14,17 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository repository;
 	
+	
+	/**
+	 * 検索:引数(ID)の管理者情報
+	 * 
+	 * @param id : 検索する管理者情報のID
+	 * @return 検索した管理者情報
+	 */
+	public Administrator load(Integer id) {
+		return repository.load(id);
+	}
+	
 	/**
 	 * 追加:管理者情報.
 	 * 
@@ -22,7 +33,11 @@ public class AdministratorService {
 	 * 
 	 */
 	public Administrator insert(Administrator administrator) {
-		return repository.save(administrator);
+		if( repository.findByMailAddress(administrator.getMailAddress()) == null) {
+			return repository.save(administrator);
+		}else {
+			return null;
+		}
 	}
 	
 	
@@ -33,9 +48,23 @@ public class AdministratorService {
 	 * @return 管理者情報 or null
 	 */
 	public Administrator login(Administrator administrator) {		
-		return repository.findByEmailAddressAndPassword(
+		return repository.findByMailAddressAndPassword(
 				administrator.getMailAddress(),administrator.getPassword());
 
+	}
+	
+	/**
+	 * 更新:管理者情報.
+	 * 
+	 * @param administrator : 更新する管理者情報
+	 * @return 更新した管理者情報 or null
+	 */
+	public Administrator update(Administrator administrator) {
+		if(repository.findByMailAddress(administrator.getMailAddress())==null) {			
+			return repository.save(administrator);
+		}else {
+			return null;
+		}
 	}
 
 }

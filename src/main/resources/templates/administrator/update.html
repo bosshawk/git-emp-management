@@ -28,14 +28,15 @@
 
 				
 <!-- ここから上を編集する必要はありません -->
-				<form method="post" action="login.html" th:action="@{/administrator/insert}" th:object="${insertAdministratorForm}">
+				<form method="post" action="login.html" th:action="@{/administrator/update}" th:object="${updateAdministratorForm}">
 						<fieldset>
-							<legend>管理者登録<br>(システムにログインできる管理者を登録します)</legend>
-							<div th:if="${insertAddministrator!=null}" class="form-group">
+							<legend>管理者情報<br>(管理者情報を更新します)</legend>
+							<div th:if="${updateAddministrator!=null}" class="form-group">
 								<div class="alert alert-danger">
-									<p th:text="${insertAddministrator}"></p>
+									<p th:text="${updateAddministrator}"></p>
 			                    </div>
 			                </div>
+			                <input type="hidden" name="id" th:value="*{id}">
 							<!-- 氏名 -->
 							<div class="form-group">
 								<div class="row">
@@ -82,13 +83,9 @@
 							<div class="form-group">
 								<div class="row">
 									<div class="col-sm-12">
-										<button type="submit" class="btn btn-primary">登録</button>
+										<button type="submit" class="btn btn-primary">更新</button>
 									</div>
 								</div>
-							</div>
-							<!-- 戻るボタン -->
-							<div class="form-group">
-								<a href="insert.html" th:href="@{/administrator/}">ログイン画面へ</a>
 							</div>
 						</fieldset>
 					</form>
