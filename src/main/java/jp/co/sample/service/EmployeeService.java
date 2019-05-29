@@ -45,10 +45,19 @@ public class EmployeeService {
 	 * 更新:従業員情報.
 	 * 
 	 * @param employee : 更新する従業員情報
-	 * @return 更新された従業員情報
+	 * @return 更新された従業員情報 or null
 	 */
 	public Employee update(Employee employee) {
-		return repository.save(employee);
+		Employee employeeByMaiAddress
+		 = repository.findByMailAddress(employee.getMailAddress());
+		
+		if(employee.getId() == employeeByMaiAddress.getId() ) {
+			return repository.save(employee);
+		}else {
+			return null;
+		}
+		
+		
 	}
 
 }

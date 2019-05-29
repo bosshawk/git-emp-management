@@ -183,6 +183,14 @@ public class AdministratorController {
 		}
 	}
 	
+	/**
+	 * 更新:管理者情報.
+	 * 
+	 * @param form : 更新する管理者情報
+	 * @param result : エラースコープ
+	 * @param model : リクエストスコープ
+	 * @return 完了時は従業員リストに遷移,エラー時は管理者更新画面に遷移
+	 */
 	@RequestMapping("/update")
 	public String update(
 			@Validated UpdateAdministratorForm form,
@@ -195,6 +203,7 @@ public class AdministratorController {
 		Administrator administrator = service.load(form.getIntId());
 		administrator = form.copy(administrator);
 		administrator = service.update(administrator);
+		
 		if(administrator != null) {
 			return "employee/list";
 		}else {

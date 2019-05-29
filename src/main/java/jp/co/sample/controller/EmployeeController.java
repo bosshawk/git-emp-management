@@ -61,8 +61,8 @@ public class EmployeeController {
 		}
 		Employee employee = new Employee();
 		employee = service.load(Integer.parseInt(id));
+		form.setForm(employee);
 		model.addAttribute("employee", employee);
-		form.copy(employee);
 		return "employee/detail";
 	}
 	
@@ -87,7 +87,7 @@ public class EmployeeController {
 		}
 		
 		Employee employee = service.load(Integer.parseInt(form.getId()));
-		employee = form.update(employee);
+		form.copy(employee);
 		
 		employee = service.update(employee);
 		

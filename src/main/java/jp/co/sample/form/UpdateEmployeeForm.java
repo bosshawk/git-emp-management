@@ -59,7 +59,7 @@ public class UpdateEmployeeForm {
 	 * 
 	 * @param employee : 管理者情報
 	 */
-	public void copy(Employee employee) {
+	public void setForm(Employee employee) {
 		BeanUtils.copyProperties(employee,this);
 		hireDate = employee.getHireDate().toString();
 		salary = ""+employee.getSalary();
@@ -72,7 +72,7 @@ public class UpdateEmployeeForm {
 	 * @param employee 更新される従業員情報
 	 * @return 更新された従業員情報
 	 */
-	public Employee update(Employee employee) {
+	public Employee copy(Employee employee) {
 		employee.setName(name);
 		employee.setGender(gender);
 		employee.setHireDate(getDateHireDate());

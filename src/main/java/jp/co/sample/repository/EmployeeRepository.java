@@ -24,6 +24,9 @@ public class EmployeeRepository {
 	
 	private static final String TABLE_NAME = "employees";
 	
+	private static final String ALL_COLUMN_NAME 
+	= "id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count";
+	
 	/** 従業員情報のRowMapper */
 	private static final RowMapper<Employee> 
 	EMPLOYEE_ROW_MAPPER = (rs,i) -> {
@@ -76,9 +79,30 @@ public class EmployeeRepository {
 	 */
 	public List<Employee> findAll(){
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM " + TABLE_NAME + " ");
+		sql.append("SELECT " + ALL_COLUMN_NAME +" FROM " + TABLE_NAME + " ");
 		sql.append("ORDER BY hire_date DESC; ");
 		return template.query(sql.toString(), EMPLOYEE_ROW_MAPPER);
+	}
+	
+	
+	/**
+	 * 検索:引数メールアドレスから従業員情報
+	 * 
+	 * @param mailAddress : 検索するメールアドレス
+	 * @return 検索された従業員情報 or null
+	 */
+	public Employee findByMailAddress(String mailAddress) {
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT " + ALL_COLUMN_NAME + " FROM "+ TABLE_NAME + " "
+				+ "WHERE mail_address = :mailAddress;");
+		SqlParameterSource pram
+		= new MapSqlParameterSource().addValue("mailAddress", mailAddress);
+		List<Employee> employeeList = template.query(sql.toString(), pram,EMPLOYEE_ROW_MAPPER);
+		if(employeeList.size() == 1) {
+			return employeeList.get(0);
+		}else {
+			return null;
+		}
 	}
 	
 	/**
